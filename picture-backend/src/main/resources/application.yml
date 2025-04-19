@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: picture-backend
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/picture
+    username: root
+    password: admin
+server:
+  port: 8002
+  servlet:
+    context-path: /api
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_del
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射。
+    map-underscore-to-camel-case: true
+knife4j:
+  enable: true
+  openapi:
+    title: 云图库接口文档
+    description: "`我是测试`,**你知道吗**
+    # aaa"
+    email: xiaoymin@foxmail.com
+    concat: 八一菜刀
+    url: https://docs.xiaominfo.com
+    version: v1.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      default:
+        group-name: 分组名称
+        api-rule: package
+        api-rule-resources:
+          - com.picture.controller
