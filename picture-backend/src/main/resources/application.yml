@@ -25,18 +25,17 @@ knife4j:
   enable: true
   openapi:
     title: 云图库接口文档
-    description: "`我是测试`,**你知道吗**
-    # aaa"
-    email: xiaoymin@foxmail.com
-    concat: 八一菜刀
-    url: https://docs.xiaominfo.com
+    description: "拾光图库"
+    email: cherished-moments-gallery@qq.com
+    concat: Amenity
+    url: https://cherished-moments-gallery.com
     version: v1.0
     license: Apache 2.0
     license-url: https://stackoverflow.com/
     terms-of-service-url: https://stackoverflow.com/
     group:
       default:
-        group-name: 分组名称
+        group-name:
         api-rule: package
         api-rule-resources:
           - com.picture.controller
