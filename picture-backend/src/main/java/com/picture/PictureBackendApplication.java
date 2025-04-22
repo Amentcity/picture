@@ -8,6 +8,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @MapperScan("com.picture.mapper")
 @EnableAspectJAutoProxy(exposeProxy = true)
+@MapperScan("com.p")
 public class PictureBackendApplication {
 
     public static void main(String[] args) {
