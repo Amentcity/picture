@@ -1,7 +1,7 @@
 package com.picture.model.dto.user;
 
 import com.picture.common.PageRequest;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,31 +16,31 @@ public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * id
      */
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
     /**
      * 用户昵称
      */
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String userName;
 
     /**
      * 账号
      */
-    @ApiModelProperty(value = "账号")
+    @Schema(description = "账号")
     private String userAccount;
 
     /**
      * 简介
      */
-    @ApiModelProperty(value = "简介")
+    @Schema(description = "简介")
     private String userProfile;
 
     /**
      * 用户角色：user/admin/ban
      */
-    @ApiModelProperty(value = "用户角色")
+    @Schema(description = "用户角色")
     private String userRole;
 
 }

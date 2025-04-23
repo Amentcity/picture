@@ -9,7 +9,7 @@ import com.picture.model.entity.User;
 import com.picture.model.vo.LoginUserVO;
 import com.picture.model.vo.UserVO;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

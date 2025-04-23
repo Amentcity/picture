@@ -1,11 +1,12 @@
 package com.picture.model.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@Schema(description = "用户注册")
 public class UserRegisterResult implements Serializable {
 
     private static final long serialVersionUID = -2866172476282543825L;
@@ -13,18 +14,18 @@ public class UserRegisterResult implements Serializable {
     /**
      * 账号
      */
-    @ApiModelProperty(value = "用户账号", required = true)
+    @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String userAccount;
 
     /**
      * 密码
      */
-    @ApiModelProperty(value = "用户密码", required = true)
+    @Schema(description = "用户密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String userPassword;
 
     /**
      * 确认密码
      */
-    @ApiModelProperty(value = "确认密码", required = true)
+    @Schema(description = "确认密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String checkPassword;
 }

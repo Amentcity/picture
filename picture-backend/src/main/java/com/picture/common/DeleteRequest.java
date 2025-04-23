@@ -1,6 +1,6 @@
 package com.picture.common;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +13,6 @@ public class DeleteRequest implements Serializable {
     /**
      * id
      */
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     private int id;
 }

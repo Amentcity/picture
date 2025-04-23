@@ -15,19 +15,22 @@ import com.picture.model.entity.User;
 import com.picture.model.vo.LoginUserVO;
 import com.picture.model.vo.UserVO;
 import com.picture.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户模块")
+@Tag(name = "用户模块")
 public class UserController {
 
     @Resource
@@ -37,7 +40,7 @@ public class UserController {
      * 用户注册
      */
     @PostMapping("/register")
-    @ApiOperation(value = "用户注册")
+    @Operation(summary = "用户注册")
     public BaseResponse<Long> userRegister(UserRegisterResult userRegisterResult) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(userRegisterResult), ErrorCode.PARAMS_ERROR);
         long result = userService.userRegister(userRegisterResult);
@@ -48,7 +51,7 @@ public class UserController {
      * 用户登录
      */
     @PostMapping("/login")
-    @ApiOperation(value = "用户登录")
+    @Operation(summary = "用户登录")
     public BaseResponse<LoginUserVO> userRegister(UserLoginRequest userLoginRequest, HttpServletRequest request) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(userLoginRequest), ErrorCode.PARAMS_ERROR);
         LoginUserVO loginUserVO = userService.userLogin(userLoginRequest, request);
@@ -62,7 +65,7 @@ public class UserController {
      * @return 当前登录用户
      */
     @GetMapping("/get/login")
-    @ApiOperation(value = "获取当前登录用户")
+    @Operation(summary = "获取当前登录用户")
     public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
         User loginUser = userService.loginUser(request);
         return ResultUtils.success(userService.getLoginUserVO(loginUser));
@@ -72,7 +75,7 @@ public class UserController {
      * 用户注销
      */
     @PostMapping("/logout")
-    @ApiOperation(value = "用户注销")
+    @Operation(summary = "用户注销")
     public BaseResponse<Boolean> UserLogout(HttpServletRequest request) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(request), ErrorCode.PARAMS_ERROR);
         boolean result = userService.userLogOut(request);
@@ -84,7 +87,7 @@ public class UserController {
      * 创建用户
      */
     @PostMapping("/add")
-    @ApiOperation(value = "创建用户")
+    @Operation(summary = "创建用户")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Long> addUser(UserAddRequest userAddRequest) {
         ThrowUtils.throwIf(userAddRequest == null, ErrorCode.PARAMS_ERROR);
@@ -103,9 +106,9 @@ public class UserController {
      * 根据 id 获取用户（仅管理员）
      */
     @GetMapping("/get")
-    @ApiOperation(value = "据 id 获取用户（仅管理员）")
+    @Operation(summary = "据 id 获取用户（仅管理员）")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    @ApiModelProperty(value="id", name="id", required=true)
+    @Parameter(name="id", description = "id", required=true)
     public BaseResponse<User> getUserById(long id) {
         ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
         User user = userService.getById(id);
@@ -117,8 +120,8 @@ public class UserController {
      * 根据 id 获取包装类
      */
     @GetMapping("/get/vo")
-    @ApiOperation(value = "根据 id 获取包装类")
-    @ApiModelProperty(value="id", name="id", required=true)
+    @Operation(summary = "根据 id 获取包装类")
+    @Parameter(description="id", name="id", required=true)
     public BaseResponse<UserVO> getUserVOById(long id) {
         BaseResponse<User> response = getUserById(id);
         User user = response.getData();
@@ -129,7 +132,7 @@ public class UserController {
      * 删除用户
      */
     @PostMapping("/delete")
-    @ApiOperation(value = "删除用户")
+    @Operation(summary = "删除用户")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> deleteUser(DeleteRequest deleteRequest) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
@@ -143,7 +146,7 @@ public class UserController {
      * 更新用户
      */
     @PostMapping("/update")
-    @ApiOperation(value = "更新用户")
+    @Operation(summary = "更新用户")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updateUser(UserUpdateRequest userUpdateRequest) {
         if (userUpdateRequest == null || userUpdateRequest.getId() == null) {
@@ -162,7 +165,7 @@ public class UserController {
      * @param userQueryRequest 查询请求参数
      */
     @PostMapping("/list/page/vo")
-    @ApiOperation(value = "分页获取用户封装列表（仅管理员）")
+    @Operation(summary = "分页获取用户封装列表（仅管理员）")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<UserVO>> listUserVOByPage(UserQueryRequest userQueryRequest) {
         ThrowUtils.throwIf(userQueryRequest == null, ErrorCode.PARAMS_ERROR);

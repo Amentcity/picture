@@ -21,21 +21,18 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射。
     map-underscore-to-camel-case: true
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+  api-docs:
+    path: /v3/api-docs
+  default-flat-param-object: true
+# knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true
-  openapi:
-    title: 云图库接口文档
-    description: "拾光图库"
-    email: cherished-moments-gallery@qq.com
-    concat: Amenity
-    url: https://cherished-moments-gallery.com
-    version: v1.0
-    license: Apache 2.0
-    license-url: https://stackoverflow.com/
-    terms-of-service-url: https://stackoverflow.com/
-    group:
-      default:
-        group-name:
-        api-rule: package
-        api-rule-resources:
-          - com.picture.controller
+  setting:
+    language: zh_cn

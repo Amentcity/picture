@@ -1,6 +1,6 @@
 package com.picture.model.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,31 +12,31 @@ public class UserUpdateRequest implements Serializable {
     /**
      * id
      */
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long id;
 
     /**
      * 用户昵称
      */
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String userName;
 
     /**
      * 用户头像
      */
-    @ApiModelProperty(value = "用户头像")
+    @Schema(description = "用户头像")
     private String userAvatar;
 
     /**
      * 简介
      */
-    @ApiModelProperty(value = "简介")
+    @Schema(description = "简介")
     private String userProfile;
 
     /**
      * 用户角色：user/admin
      */
-    @ApiModelProperty(value = "用户角色")
+    @Schema(description = "用户角色")
     private String userRole;
 
 }

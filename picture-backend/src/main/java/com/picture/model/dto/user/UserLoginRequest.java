@@ -1,11 +1,12 @@
 package com.picture.model.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@Schema(description = "登录")
 public class UserLoginRequest implements Serializable {
 
     private static final long serialVersionUID = 3940068709032538343L;
@@ -13,12 +14,12 @@ public class UserLoginRequest implements Serializable {
     /**
      * 账号
      */
-    @ApiModelProperty(value = "账号", required = true)
+    @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String userAccount;
 
     /**
      * 密码
      */
-    @ApiModelProperty(value = "密码", required = true)
+    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String userPassword;
 }
