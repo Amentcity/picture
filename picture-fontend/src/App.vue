@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import BasicLayout from '@/layouts/BasicLayout.vue'
-import { useUserLoginStore } from '@/stores/useUserLoginStore.ts'
-import { healthUsingGet } from '@/api/mainController.ts'
-const userLoginStore = useUserLoginStore()
-userLoginStore.fetchLoginUser();
-healthUsingGet().then((res) => {
-  console.log(res)
-})
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 </script>
 
 <template>
   <div id="app">
-    <BasicLayout/>
+    <a-config-provider :locale="zhCN">
+      <BasicLayout/>
+    </a-config-provider>
   </div>
 </template>
 
