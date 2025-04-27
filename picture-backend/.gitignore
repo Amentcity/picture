@@ -1,3 +1,6 @@
+### CUSTOM ###
+src/main/resources/*-dev.yml
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

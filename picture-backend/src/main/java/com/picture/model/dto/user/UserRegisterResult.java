@@ -3,12 +3,14 @@ package com.picture.model.dto.user;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Data
 @Schema(description = "用户注册")
 public class UserRegisterResult implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2866172476282543825L;
 
     /**

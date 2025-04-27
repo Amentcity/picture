@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     public BaseResponse<?> businessExceptionHandler(final RuntimeException e) {
         log.error("RuntimeException", e);
-        return ResultUtils.error(ErrorCode.SYSTEM_ERROR,"系统错误");
+        return ResultUtils.error(ErrorCode.SYSTEM_ERROR, "系统错误");
     }
 }

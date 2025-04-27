@@ -30,7 +30,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "用户模块")
+//@Tag(name = "用户模块")
 public class UserController {
 
     @Resource
@@ -52,7 +52,7 @@ public class UserController {
      */
     @PostMapping("/login")
     @Operation(summary = "用户登录")
-    public BaseResponse<LoginUserVO> userRegister(UserLoginRequest userLoginRequest, HttpServletRequest request) {
+    public BaseResponse<LoginUserVO> userLogin(UserLoginRequest userLoginRequest, HttpServletRequest request) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(userLoginRequest), ErrorCode.PARAMS_ERROR);
         LoginUserVO loginUserVO = userService.userLogin(userLoginRequest, request);
         return ResultUtils.success(loginUserVO);
@@ -74,9 +74,9 @@ public class UserController {
     /**
      * 用户注销
      */
-    @PostMapping("/logout")
+    @PostMapping("/userSignOut")
     @Operation(summary = "用户注销")
-    public BaseResponse<Boolean> UserLogout(HttpServletRequest request) {
+    public BaseResponse<Boolean> UserSignOut(HttpServletRequest request) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(request), ErrorCode.PARAMS_ERROR);
         boolean result = userService.userLogOut(request);
         return ResultUtils.success(result);
@@ -108,7 +108,7 @@ public class UserController {
     @GetMapping("/get")
     @Operation(summary = "据 id 获取用户（仅管理员）")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    @Parameter(name="id", description = "id", required=true)
+    @Parameter(name = "id", description = "id", required = true)
     public BaseResponse<User> getUserById(long id) {
         ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
         User user = userService.getById(id);
@@ -121,7 +121,7 @@ public class UserController {
      */
     @GetMapping("/get/vo")
     @Operation(summary = "根据 id 获取包装类")
-    @Parameter(description="id", name="id", required=true)
+    @Parameter(description = "id", name = "id", required = true)
     public BaseResponse<UserVO> getUserVOById(long id) {
         BaseResponse<User> response = getUserById(id);
         User user = response.getData();
@@ -135,9 +135,7 @@ public class UserController {
     @Operation(summary = "删除用户")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> deleteUser(DeleteRequest deleteRequest) {
-        if (deleteRequest == null || deleteRequest.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
+        ThrowUtils.throwIf(deleteRequest == null || deleteRequest.getId() <= 0, ErrorCode.PARAMS_ERROR);
         boolean b = userService.removeById(deleteRequest.getId());
         return ResultUtils.success(b);
     }

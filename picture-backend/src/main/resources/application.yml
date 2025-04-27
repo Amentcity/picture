@@ -1,12 +1,17 @@
 spring:
   application:
     name: picture-backend
+  profiles:
+    active: dev
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/picture
     username: root
     password: admin
+  servlet:
+    multipart:
+      max-file-size: 10MB
 server:
   port: 8002
   servlet:
@@ -27,9 +32,12 @@ springdoc:
     path: /swagger-ui.html
     tags-sorter: alpha
     operations-sorter: alpha
-
   api-docs:
     path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.picture.controller
   default-flat-param-object: true
 # knife4j的增强配置，不需要增强可以不配
 knife4j:

@@ -10,6 +10,7 @@ import com.picture.model.vo.LoginUserVO;
 import com.picture.model.vo.UserVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -92,4 +93,12 @@ public interface UserService extends IService<User> {
      * @return 获取查询条件
      */
     QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
+
+    /**
+     * 是否为管理员
+     *
+     * @param user 用户对象
+     * @return 是否为管理员
+     */
+    boolean isAdmin(User user);
 }

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,12 +87,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public User loginUser(HttpServletRequest httpServletRequest) {
         Object userObj = httpServletRequest.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        User currentUser = (User) userObj;
+        ThrowUtils.throwIf(userObj == null, ErrorCode.PARAMS_ERROR, "未登录");
+        User currentUser = new User();
+        BeanUtils.copyProperties(userObj, currentUser);
         ThrowUtils.throwIf(ObjectUtil.isEmpty(currentUser) && currentUser.getId() == null, ErrorCode.NOT_LOGIN_ERROR);
         // 从数据库中查询（追求性能的话可以注释，直接返回上述结果）
         Long userId = currentUser.getId();
         currentUser = getById(userId);
         ThrowUtils.throwIf(ObjectUtil.isEmpty(currentUser), ErrorCode.NOT_LOGIN_ERROR);
+        log.info(currentUser.toString());
         return currentUser;
     }
 
@@ -149,13 +153,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest) {
         ThrowUtils.throwIf(ObjectUtil.isEmpty(userQueryRequest), ErrorCode.OPERATION_ERROR, "请求参数为空");
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(ObjUtil.isNull(userQueryRequest.getId()),"id", userQueryRequest.getId());
-        queryWrapper.eq(StrUtil.isBlank(userQueryRequest.getUserRole()),"user_role", userQueryRequest.getUserRole());
-        queryWrapper.like(StrUtil.isBlank(userQueryRequest.getUserAccount()),"user_account", userQueryRequest.getUserAccount());
-        queryWrapper.like(StrUtil.isBlank(userQueryRequest.getUserName()),"user_name", userQueryRequest.getUserName());
-        queryWrapper.like(StrUtil.isBlank(userQueryRequest.getUserProfile()),"user_profile", userQueryRequest.getUserProfile());
-        queryWrapper.orderBy(StrUtil.isNotEmpty(userQueryRequest.getSortField()),userQueryRequest.getSortOrder().equals("asc"),userQueryRequest.getSortField());
+        queryWrapper.eq(!ObjUtil.isNull(userQueryRequest.getId()), "id", userQueryRequest.getId());
+        queryWrapper.eq(!StrUtil.isBlank(userQueryRequest.getUserRole()), "user_role", userQueryRequest.getUserRole());
+        queryWrapper.like(!StrUtil.isBlank(userQueryRequest.getUserAccount()), "user_account", userQueryRequest.getUserAccount());
+        queryWrapper.like(!StrUtil.isBlank(userQueryRequest.getUserName()), "user_name", userQueryRequest.getUserName());
+        queryWrapper.like(!StrUtil.isBlank(userQueryRequest.getUserProfile()), "user_profile", userQueryRequest.getUserProfile());
+        queryWrapper.orderBy(!StrUtil.isNotEmpty(userQueryRequest.getSortField()), userQueryRequest.getSortOrder().equals("asc"), userQueryRequest.getSortField());
         return queryWrapper;
+    }
+
+    @Override
+    public boolean isAdmin(User user) {
+        return user == null || !UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());
     }
 }
 
