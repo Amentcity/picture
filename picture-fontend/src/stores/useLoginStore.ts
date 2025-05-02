@@ -5,7 +5,7 @@ import { getLoginUser } from '@/api/userController.ts'
 /**
  * 存储登录用户信息的状态
  */
-export const useUserLoginStore = defineStore('loginUser', () => {
+export const useLoginStore = defineStore('loginUser', () => {
   const loginUser = ref<API.LoginUserVO>({
     userName: '未登录',
   })

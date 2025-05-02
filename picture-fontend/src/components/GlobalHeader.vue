@@ -3,10 +3,10 @@ import { computed, h, ref } from 'vue'
 import { HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useUserLoginStore } from '@/stores/useUserLoginStore.ts'
+import { useLoginStore } from '@/stores/useLoginStore.ts'
 import { userSignOut } from '@/api/userController.ts'
 
-const userLoginStore = useUserLoginStore()
+const userLoginStore = useLoginStore()
 
 // 当前要高亮的菜单项
 const current = ref<string[]>([])
@@ -115,6 +115,9 @@ const doLogout = async () => {
               </a-menu>
             </template>
           </a-dropdown>
+        </div>
+        <div v-else>
+          <a-button type="primary" href="/user/login">登录</a-button>
         </div>
       </a-col>
     </a-row>

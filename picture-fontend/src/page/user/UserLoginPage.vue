@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { userLogin } from '@/api/userController.ts'
-import { useUserLoginStore } from '@/stores/useUserLoginStore.ts'
+import { useLoginStore } from '@/stores/useLoginStore.ts'
 import { message } from 'ant-design-vue'
 import router from '@/router'
 
@@ -10,7 +10,7 @@ const formState = reactive<API.userLoginParams>({
   userPassword: '',
 })
 
-const loginUserStore = useUserLoginStore()
+const loginUserStore = useLoginStore()
 
 const onFinish = async (values: API.userLoginParams) => {
   const res = await userLogin(values)
